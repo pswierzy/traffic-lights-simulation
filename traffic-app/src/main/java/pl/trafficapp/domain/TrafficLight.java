@@ -1,0 +1,17 @@
+package pl.trafficapp.domain;
+
+public class TrafficLight {
+    private LightColor color;
+
+    public TrafficLight(LightColor color) {
+        this.color = color;
+    }
+
+    public LightColor getColor() {
+        return color;
+    }
+
+    public void setColor(LightColor color) {
+        this.color = color;
+    }
+}
