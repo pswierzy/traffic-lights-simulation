@@ -14,4 +14,8 @@ public class TrafficLight {
     public void setColor(LightColor color) {
         this.color = color;
     }
+
+    public boolean isGreen() {
+        return color == LightColor.GREEN;
+    }
 }

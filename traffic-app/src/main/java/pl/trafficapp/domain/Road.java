@@ -1,9 +1,10 @@
 package pl.trafficapp.domain;
 
-import javax.swing.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static java.lang.Integer.MAX_VALUE;
 
 public class Road {
     private final Direction incomingDirection;
@@ -14,12 +15,36 @@ public class Road {
         this.lanes = lanes;
     }
 
-    public boolean isCorrect() {
+    public Direction getIncomingDirection() {
+        return incomingDirection;
+    }
+    public List<Lane> getLanes() {
+        return lanes;
+    }
+
+    // Structure validation - can you go everywhere from this road
+    public boolean isValid() {
         Set<Direction> possibleOutDirections = new HashSet<>();
         possibleOutDirections.add(incomingDirection);
         for (Lane lane : lanes) {
             possibleOutDirections.addAll(lane.getAllowedDirections());
         }
         return possibleOutDirections.size() == Direction.values().length;
+    }
+
+    public boolean addVehicle(Vehicle vehicle) {
+        Lane shortestLane = null;
+        int shortestLine = MAX_VALUE;
+
+        for (Lane lane : lanes) {
+            if (lane.isDirectionAllowed(vehicle.end())) {
+                if (shortestLine > lane.getQueueSize()) {
+                    shortestLine = lane.getQueueSize();
+                    shortestLane = lane;
+                }
+            }
+        }
+
+        return shortestLane != null && shortestLane.addVehicle(vehicle);
     }
 }

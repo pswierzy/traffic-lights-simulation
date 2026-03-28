@@ -24,4 +24,40 @@ public enum Direction {
         }
         throw new IllegalArgumentException("Unknown direction: " + val);
     }
+
+    public static Direction getRightDirection(Direction dir) {
+        if(dir == Direction.NORTH) {
+            return Direction.WEST;
+        } else if(dir == Direction.WEST) {
+            return Direction.SOUTH;
+        } else if(dir == Direction.SOUTH) {
+            return Direction.EAST;
+        } else {
+            return Direction.NORTH;
+        }
+    }
+
+    public static Direction getOppositeDirection(Direction dir) {
+        if(dir == Direction.NORTH) {
+            return Direction.SOUTH;
+        } else if(dir == Direction.SOUTH) {
+            return Direction.NORTH;
+        } else if(dir == Direction.EAST) {
+            return Direction.WEST;
+        } else {
+            return Direction.EAST;
+        }
+    }
+
+    public static Direction getLeftDirection(Direction dir) {
+        if(dir == Direction.NORTH) {
+            return Direction.EAST;
+        } else if(dir == Direction.EAST) {
+            return Direction.SOUTH;
+        } else if(dir == Direction.SOUTH) {
+            return Direction.WEST;
+        } else {
+            return Direction.NORTH;
+        }
+    }
 }
