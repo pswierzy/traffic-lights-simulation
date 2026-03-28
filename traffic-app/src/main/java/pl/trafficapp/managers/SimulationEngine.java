@@ -1,4 +1,4 @@
-package pl.trafficapp.domain.managers;
+package pl.trafficapp.managers;
 
 public class SimulationEngine {
     private final TrafficManager trafficManager;
