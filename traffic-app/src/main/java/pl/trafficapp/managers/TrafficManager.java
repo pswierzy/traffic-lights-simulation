@@ -3,6 +3,9 @@ package pl.trafficapp.managers;
 import pl.trafficapp.domain.*;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class TrafficManager {
     private final Intersection intersection;
@@ -106,14 +109,18 @@ public class TrafficManager {
     }
 
     public void processTraffic() {
+
+        List<Lane> lanes = new ArrayList<>();
         for (Road road: intersection.getAllRoads()) {
             for (Lane lane : road.getLanes()) {
                 if (canFirstVehicleGo(lane)) {
-                    lane.pollVehicle();
-
-                    // TODO - logging vehicle leaving
+                    lanes.add(lane);
                 }
             }
+        }
+        for (Lane lane : lanes) {
+            Vehicle vehicle = lane.pollVehicle().get();
+            System.out.printf("[leftVehicles] Vehicle %s left the intersection!\n", vehicle.id());
         }
     }
 }

@@ -24,7 +24,7 @@ public class Intersection {
 
     // as for now we accept only 4 way intersections
     // T-interceptions are on a TODO list
-    public boolean validateIntersection() {
+    public boolean isValid() {
         for (Road road : inRoads.values()) {
             if (!road.isValid()) return false;
         }

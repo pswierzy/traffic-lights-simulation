@@ -13,7 +13,7 @@ public class TrafficLightManager {
     private final Map<Phase, Integer> phaseWaitTicks = new EnumMap<>(Phase.class);
 
     private int timer = 0;
-    private Phase currentPhase = Phase.NS;
+    private Phase currentPhase = Phase.NS_LEFT;
     private State currentState = State.RED_ALL;
 
     private final static int MIN_GREEN_LENGTH = 2;
@@ -107,20 +107,24 @@ public class TrafficLightManager {
             case GREEN -> {
                 currentState = State.YELLOW;
                 timer = 1;
+                System.out.printf("[TrafficLight] Phase %s -> YELLOW%n", currentPhase);
             }
             case YELLOW -> {
                 currentState = State.RED_ALL;
                 timer = 1;
+                System.out.println("[TrafficLight] All lights -> RED_ALL (Clearance)");
             }
             case RED_ALL -> {
                 currentState = State.RED_YELLOW;
                 currentPhase = getNextPhase();
                 timer = 1;
+                System.out.printf("[TrafficLight] Preparing Phase: %s -> RED_YELLOW%n", currentPhase);
             }
             case RED_YELLOW -> {
                 currentState = State.GREEN;
                 timer = calculateGreenDuration();
                 phaseWaitTicks.put(currentPhase, 0);
+                System.out.printf("[TrafficLight] Phase %s -> GREEN (Duration calculated: %d ticks)%n", currentPhase, timer);
             }
         }
     }

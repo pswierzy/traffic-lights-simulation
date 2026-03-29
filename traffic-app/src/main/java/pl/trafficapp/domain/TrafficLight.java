@@ -1,11 +1,13 @@
 package pl.trafficapp.domain;
 
 public class TrafficLight {
-    private LightColor color;
+    private LightColor color = LightColor.RED;
     private final boolean isDirectional;
 
-    public TrafficLight(LightColor color, boolean isDirectional) {
-        this.color = color;
+    public TrafficLight() {
+        this.isDirectional = false;
+    }
+    public TrafficLight(boolean isDirectional) {
         this.isDirectional = isDirectional;
     }
 

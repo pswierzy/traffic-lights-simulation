@@ -1,0 +1,40 @@
+{
+  "commands": [
+    { "type": "addVehicle", "vehicleId": "Auto1_N_S", "startRoad": "north", "endRoad": "south" },
+    { "type": "addVehicle", "vehicleId": "Auto2_N_S", "startRoad": "north", "endRoad": "south" },
+    { "type": "addVehicle", "vehicleId": "Auto3_S_N", "startRoad": "south", "endRoad": "north" },
+    { "type": "step" },
+    { "type": "step" },
+    { "type": "step" },
+
+    { "type": "addVehicle", "vehicleId": "Auto4_Lewo_NE", "startRoad": "north", "endRoad": "east" },
+    { "type": "addVehicle", "vehicleId": "Auto5_Lewo_SW", "startRoad": "south", "endRoad": "west" },
+    { "type": "step" },
+    { "type": "step" },
+
+    { "type": "addVehicle", "vehicleId": "Auto6_E_W", "startRoad": "east", "endRoad": "west" },
+    { "type": "addVehicle", "vehicleId": "Auto7_W_E", "startRoad": "west", "endRoad": "east" },
+    { "type": "step" },
+    { "type": "step" },
+    { "type": "step" },
+
+    { "type": "addVehicle", "vehicleId": "Auto8_Prawo_NW", "startRoad": "north", "endRoad": "west" },
+    { "type": "step" },
+    { "type": "step" },
+    { "type": "step" },
+
+    { "type": "addVehicle", "vehicleId": "Korek1_E_W", "startRoad": "east", "endRoad": "west" },
+    { "type": "addVehicle", "vehicleId": "Korek2_E_W", "startRoad": "east", "endRoad": "west" },
+    { "type": "addVehicle", "vehicleId": "Korek3_E_W", "startRoad": "east", "endRoad": "west" },
+    { "type": "addVehicle", "vehicleId": "Korek4_E_N", "startRoad": "east", "endRoad": "north" },
+    { "type": "addVehicle", "vehicleId": "Korek5_W_E", "startRoad": "west", "endRoad": "east" },
+
+    { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" },
+    { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" },
+    { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" },
+    { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" },
+    { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" },
+    { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" },
+    { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }
+  ]
+}
