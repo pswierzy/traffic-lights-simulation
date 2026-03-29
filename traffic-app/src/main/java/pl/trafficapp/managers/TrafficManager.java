@@ -5,7 +5,6 @@ import pl.trafficapp.domain.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class TrafficManager {
     private final Intersection intersection;
@@ -108,7 +107,7 @@ public class TrafficManager {
         return canGoStraight(color);
     }
 
-    public void processTraffic() {
+    public List<String> processTraffic() {
 
         List<Lane> lanes = new ArrayList<>();
         for (Road road: intersection.getAllRoads()) {
@@ -118,9 +117,13 @@ public class TrafficManager {
                 }
             }
         }
+
+        List<String> vehicles = new ArrayList<>();
         for (Lane lane : lanes) {
             Vehicle vehicle = lane.pollVehicle().get();
+            vehicles.add(vehicle.id());
             System.out.printf("[leftVehicles] Vehicle %s left the intersection!\n", vehicle.id());
         }
+        return vehicles;
     }
 }

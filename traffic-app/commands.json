@@ -29,12 +29,6 @@
     { "type": "addVehicle", "vehicleId": "Korek4_E_N", "startRoad": "east", "endRoad": "north" },
     { "type": "addVehicle", "vehicleId": "Korek5_W_E", "startRoad": "west", "endRoad": "east" },
 
-    { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" },
-    { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" },
-    { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" },
-    { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" },
-    { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" },
-    { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" },
     { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }
   ]
 }
