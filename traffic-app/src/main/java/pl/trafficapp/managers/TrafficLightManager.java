@@ -86,8 +86,19 @@ public class TrafficLightManager {
 
         if (nextPhase == null) {
             Phase[] phases = Phase.values();
-            int nextIndex = (currentPhase.ordinal() + 1) % phases.length;
-            return phases[nextIndex];
+            int startIndex = (currentPhase.ordinal() + 1) % phases.length;
+
+            for (int i = 0; i < phases.length; i++) {
+                int checkIndex = (startIndex + i) % phases.length;
+                Phase potentialNextPhase = phases[checkIndex];
+
+                List<Lane> lanes = phaseLanes.get(potentialNextPhase);
+                if (lanes != null && !lanes.isEmpty()) {
+                    return potentialNextPhase;
+                }
+            }
+
+            return currentPhase;
         }
 
         return nextPhase;

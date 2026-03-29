@@ -1,34 +1,53 @@
 {
   "commands": [
-    { "type": "addVehicle", "vehicleId": "Auto1_N_S", "startRoad": "north", "endRoad": "south" },
-    { "type": "addVehicle", "vehicleId": "Auto2_N_S", "startRoad": "north", "endRoad": "south" },
-    { "type": "addVehicle", "vehicleId": "Auto3_S_N", "startRoad": "south", "endRoad": "north" },
+    { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" },
+    { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" },
+    { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" },
+    { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" },
+    { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" },
+    { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" },
+    { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" },
+    { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" },
+    { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" },
+    { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" },
+
+    { "type": "addVehicle", "vehicleId": "Straight_N_S_1", "startRoad": "north", "endRoad": "south" },
+    { "type": "addVehicle", "vehicleId": "Straight_N_S_2", "startRoad": "north", "endRoad": "south" },
+    { "type": "addVehicle", "vehicleId": "Straight_S_N_1", "startRoad": "south", "endRoad": "north" },
+    { "type": "step" },
+    { "type": "step" },
+
+    { "type": "addVehicle", "vehicleId": "LeftYield_N_E", "startRoad": "north", "endRoad": "east" },
+    { "type": "addVehicle", "vehicleId": "Straight_S_N_2", "startRoad": "south", "endRoad": "north" },
     { "type": "step" },
     { "type": "step" },
     { "type": "step" },
 
-    { "type": "addVehicle", "vehicleId": "Auto4_Lewo_NE", "startRoad": "north", "endRoad": "east" },
-    { "type": "addVehicle", "vehicleId": "Auto5_Lewo_SW", "startRoad": "south", "endRoad": "west" },
-    { "type": "step" },
-    { "type": "step" },
-
-    { "type": "addVehicle", "vehicleId": "Auto6_E_W", "startRoad": "east", "endRoad": "west" },
-    { "type": "addVehicle", "vehicleId": "Auto7_W_E", "startRoad": "west", "endRoad": "east" },
+    { "type": "addVehicle", "vehicleId": "RightCond_N_W_1", "startRoad": "north", "endRoad": "west" },
+    { "type": "addVehicle", "vehicleId": "RightCond_N_W_2", "startRoad": "north", "endRoad": "west" },
     { "type": "step" },
     { "type": "step" },
     { "type": "step" },
 
-    { "type": "addVehicle", "vehicleId": "Auto8_Prawo_NW", "startRoad": "north", "endRoad": "west" },
+    { "type": "addVehicle", "vehicleId": "Cross_E_W_1", "startRoad": "east", "endRoad": "west" },
+    { "type": "addVehicle", "vehicleId": "Cross_W_E_1", "startRoad": "west", "endRoad": "east" },
+    { "type": "addVehicle", "vehicleId": "CrossLeft_E_S", "startRoad": "east", "endRoad": "south" },
     { "type": "step" },
     { "type": "step" },
     { "type": "step" },
 
-    { "type": "addVehicle", "vehicleId": "Korek1_E_W", "startRoad": "east", "endRoad": "west" },
-    { "type": "addVehicle", "vehicleId": "Korek2_E_W", "startRoad": "east", "endRoad": "west" },
-    { "type": "addVehicle", "vehicleId": "Korek3_E_W", "startRoad": "east", "endRoad": "west" },
-    { "type": "addVehicle", "vehicleId": "Korek4_E_N", "startRoad": "east", "endRoad": "north" },
-    { "type": "addVehicle", "vehicleId": "Korek5_W_E", "startRoad": "west", "endRoad": "east" },
+    { "type": "addVehicle", "vehicleId": "Jam_N_S", "startRoad": "north", "endRoad": "south" },
+    { "type": "addVehicle", "vehicleId": "Jam_N_E", "startRoad": "north", "endRoad": "east" },
+    { "type": "addVehicle", "vehicleId": "Jam_N_W", "startRoad": "north", "endRoad": "west" },
+    { "type": "addVehicle", "vehicleId": "Jam_S_N", "startRoad": "south", "endRoad": "north" },
+    { "type": "addVehicle", "vehicleId": "Jam_S_W", "startRoad": "south", "endRoad": "west" },
+    { "type": "addVehicle", "vehicleId": "Jam_E_W_1", "startRoad": "east", "endRoad": "west" },
+    { "type": "addVehicle", "vehicleId": "Jam_E_W_2", "startRoad": "east", "endRoad": "west" },
+    { "type": "addVehicle", "vehicleId": "Jam_W_E", "startRoad": "west", "endRoad": "east" },
+    { "type": "addVehicle", "vehicleId": "Jam_W_N", "startRoad": "west", "endRoad": "north" },
 
-    { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }
+    { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" },
+    { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" },
+    { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }
   ]
 }

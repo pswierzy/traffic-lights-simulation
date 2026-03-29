@@ -5,12 +5,16 @@ import pl.trafficapp.managers.dto.*;
 import pl.trafficapp.managers.observer.SimulationObserver;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class SimulationEngine {
     private final TrafficManager trafficManager;
     private final TrafficLightManager trafficLightManager;
     private final Intersection intersection;
+
+    private final Queue<Command> commandQueue = new LinkedList<>();
 
     private final List<SimulationObserver> observers = new ArrayList<>();
 
@@ -30,6 +34,28 @@ public class SimulationEngine {
     }
     public boolean addVehicle(String id, Direction start, Direction end) {
         return intersection.addVehicle(new Vehicle(id, start, end));
+    }
+
+    public void executeNextCommand() {
+        if (commandQueue.isEmpty()) {
+            System.out.println("Command queue is empty.");
+            for (SimulationObserver observer : observers) {
+                observer.onSimulationFinished();
+            }
+            return;
+        }
+
+        Command command = commandQueue.poll();
+        switch (command.type()) {
+            case "addVehicle" -> handleAddVehicle(command);
+            case "step" -> handleStep();
+            default -> System.out.println("Unknown command: " + command.type());
+        }
+    }
+
+    public void loadCommands(SimulationRequest request) {
+        this.commandQueue.addAll(request.commands());
+        System.out.println("Loaded " + commandQueue.size() + " commands to a queue.");
     }
 
     public void execute(SimulationRequest request) {
