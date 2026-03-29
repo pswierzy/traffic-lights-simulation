@@ -28,6 +28,12 @@ public class Road {
         possibleOutDirections.add(incomingDirection);
         for (Lane lane : lanes) {
             possibleOutDirections.addAll(lane.getAllowedDirections());
+            // directional left turns should be ONLY for left turns
+            if (lane.getAllowedDirections().contains(Direction.getLeftDirection(incomingDirection)) &&
+                    lane.getTrafficLight().isDirectional() &&
+                    lane.getAllowedDirections().size() != 1) {
+                return false;
+            }
         }
         return possibleOutDirections.size() == Direction.values().length;
     }
