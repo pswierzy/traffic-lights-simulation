@@ -123,13 +123,13 @@ public class TrafficLightManager {
             case YELLOW -> {
                 currentState = State.RED_ALL;
                 timer = 1;
-                System.out.println("[TrafficLight] All lights -> RED_ALL (Clearance)");
+                System.out.println("[TrafficLight] RED_ALL");
             }
             case RED_ALL -> {
                 currentState = State.RED_YELLOW;
                 currentPhase = getNextPhase();
                 timer = 1;
-                System.out.printf("[TrafficLight] Preparing Phase: %s -> RED_YELLOW%n", currentPhase);
+                System.out.printf("[TrafficLight] New Phase: %s -> RED_YELLOW%n", currentPhase);
             }
             case RED_YELLOW -> {
                 currentState = State.GREEN;
@@ -162,7 +162,7 @@ public class TrafficLightManager {
                 for (Lane lane : phaseLanes.get(currentPhase)) {
                     lane.getTrafficLight().setColor(LightColor.YELLOW);
                 }
-                // Where we can we turn on green arrows (bcs they are smart and non-blocking)
+                // Where we can we turn on green arrows (bcs the cars are smart and won't crash)
                 for (Road road : intersection.getAllRoads()) {
                     for (Lane lane : road.getLanes()) {
                         if (lane.getTrafficLight().getColor() == LightColor.GREEN_ARROW_RIGHT) {

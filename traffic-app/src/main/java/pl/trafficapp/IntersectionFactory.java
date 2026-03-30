@@ -1,167 +1,63 @@
 package pl.trafficapp;
 
 import pl.trafficapp.domain.*;
-
 import java.util.*;
 
 public class IntersectionFactory {
+
     public static Intersection createStandardIntersection() {
-        List<Road> inRoads = new ArrayList<>();
-
-        for (Direction direction : Direction.values()) {
-            List<Lane> lanes = new ArrayList<>();
-
-            Direction left = Direction.getLeftDirection(direction);
-            Direction right = Direction.getRightDirection(direction);
-            Direction straight = Direction.getOppositeDirection(direction);
-
-            // LEFT TURN
-            TrafficLight leftLight = new TrafficLight(true);
-            Lane leftLane = new Lane(Set.of(left), leftLight);
-            lanes.add(leftLane);
-
-            // STRAIGHT
-            TrafficLight straightLight = new TrafficLight();
-            Lane middleLane = new Lane(Set.of(straight), straightLight);
-            lanes.add(middleLane);
-
-            // STRAIGHT / RIGHT
-            TrafficLight rightLight = new TrafficLight();
-            Lane rightLane = new Lane(Set.of(right, straight), rightLight);
-            lanes.add(rightLane);
-
-            inRoads.add(new Road(direction, lanes));
-        }
-
-        return new Intersection(inRoads);
+        return createSymmetric(dir -> List.of(
+                lane(dir, true,  "L"),
+                lane(dir, false, "S"),
+                lane(dir, false, "SR")
+        ));
     }
 
     public static Intersection createSimpleIntersection() {
-        List<Road> inRoads = new ArrayList<>();
-
-        for (Direction direction : Direction.values()) {
-            List<Lane> lanes = new ArrayList<>();
-
-            Direction left = Direction.getLeftDirection(direction);
-            Direction right = Direction.getRightDirection(direction);
-            Direction straight = Direction.getOppositeDirection(direction);
-
-            // LEFT / STRAIGHT / RIGHT - ONE LANE
-            TrafficLight mainLight = new TrafficLight();
-            Lane singleLane = new Lane(Set.of(left, straight, right), mainLight);
-            lanes.add(singleLane);
-
-            inRoads.add(new Road(direction, lanes));
-        }
-
-        return new Intersection(inRoads);
+        return createSymmetric(dir -> List.of(
+                lane(dir, false, "LSR")
+        ));
     }
 
     public static Intersection createTwoLaneIntersection() {
-        List<Road> inRoads = new ArrayList<>();
-
-        for (Direction direction : Direction.values()) {
-            List<Lane> lanes = new ArrayList<>();
-
-            Direction left = Direction.getLeftDirection(direction);
-            Direction right = Direction.getRightDirection(direction);
-            Direction straight = Direction.getOppositeDirection(direction);
-
-            // LEFT / STRAIGHT
-            TrafficLight leftStraightLight = new TrafficLight();
-            Lane leftLane = new Lane(Set.of(left, straight), leftStraightLight);
-            lanes.add(leftLane);
-
-            // STRAIGHT / RIGHT
-            TrafficLight rightStraightLight = new TrafficLight();
-            Lane rightLane = new Lane(Set.of(right, straight), rightStraightLight);
-            lanes.add(rightLane);
-
-            inRoads.add(new Road(direction, lanes));
-        }
-
-        return new Intersection(inRoads);
+        return createSymmetric(dir -> List.of(
+                lane(dir, false, "LS"),
+                lane(dir, false, "SR")
+        ));
     }
 
     public static Intersection createUnevenIntersection() {
-        List<Road> inRoads = new ArrayList<>();
+        List<Road> roads = new ArrayList<>();
 
-        // NORTH
-        Direction direction = Direction.NORTH;
-        Direction left = Direction.getLeftDirection(direction);
-        Direction right = Direction.getRightDirection(direction);
-        Direction straight = Direction.getOppositeDirection(direction);
-        List<Lane> lanes = new ArrayList<>();
+        roads.add(new Road(Direction.NORTH, List.of(lane(Direction.NORTH, false, "LS"), lane(Direction.NORTH, false, "SR"))));
 
-        // LEFT / STRAIGHT
-        TrafficLight leftStraightLight = new TrafficLight();
-        Lane leftLane = new Lane(Set.of(left, straight), leftStraightLight);
-        lanes.add(leftLane);
+        roads.add(new Road(Direction.SOUTH, List.of(lane(Direction.SOUTH, false, "LSR"))));
 
-        // STRAIGHT / RIGHT
-        TrafficLight rightStraightLight = new TrafficLight();
-        Lane rightLane = new Lane(Set.of(right, straight), rightStraightLight);
-        lanes.add(rightLane);
+        roads.add(new Road(Direction.WEST, List.of(
+                lane(Direction.WEST, true, "L"),
+                lane(Direction.WEST, false, "S"),
+                lane(Direction.WEST, false, "SR")
+        )));
 
-        inRoads.add(new Road(direction, lanes));
+        roads.add(new Road(Direction.EAST, List.of(lane(Direction.EAST, true, "L"), lane(Direction.EAST, false, "SR"))));
 
-        // SOUTH
-        direction = Direction.SOUTH;
-        left = Direction.getLeftDirection(direction);
-        right = Direction.getRightDirection(direction);
-        straight = Direction.getOppositeDirection(direction);
-        lanes = new ArrayList<>();
+        return new Intersection(roads);
+    }
 
-        // LEFT / STRAIGHT / RIGHT - ONE LANE
-        TrafficLight mainLight = new TrafficLight();
-        Lane singleLane = new Lane(Set.of(left, straight, right), mainLight);
-        lanes.add(singleLane);
+    private static Intersection createSymmetric(java.util.function.Function<Direction, List<Lane>> roadTemplate) {
+        List<Road> roads = new ArrayList<>();
+        for (Direction dir : Direction.values()) {
+            roads.add(new Road(dir, roadTemplate.apply(dir)));
+        }
+        return new Intersection(roads);
+    }
 
-        inRoads.add(new Road(direction, lanes));
+    private static Lane lane(Direction incoming, boolean isDirectional, String spec) {
+        Set<Direction> allowed = new HashSet<>();
+        if (spec.contains("L")) allowed.add(Direction.getLeftDirection(incoming));
+        if (spec.contains("S")) allowed.add(Direction.getOppositeDirection(incoming));
+        if (spec.contains("R")) allowed.add(Direction.getRightDirection(incoming));
 
-        // WEST
-        direction = Direction.WEST;
-        left = Direction.getLeftDirection(direction);
-        right = Direction.getRightDirection(direction);
-        straight = Direction.getOppositeDirection(direction);
-        lanes = new ArrayList<>();
-
-        // LEFT TURN
-        TrafficLight leftLight = new TrafficLight(true);
-        leftLane = new Lane(Set.of(left), leftLight);
-        lanes.add(leftLane);
-
-        // STRAIGHT
-        TrafficLight straightLight = new TrafficLight();
-        Lane middleLane = new Lane(Set.of(straight), straightLight);
-        lanes.add(middleLane);
-
-        // STRAIGHT / RIGHT
-        TrafficLight rightLight = new TrafficLight();
-        rightLane = new Lane(Set.of(right, straight), rightLight);
-        lanes.add(rightLane);
-
-        inRoads.add(new Road(direction, lanes));
-
-        // EAST
-        direction = Direction.EAST;
-        left = Direction.getLeftDirection(direction);
-        right = Direction.getRightDirection(direction);
-        straight = Direction.getOppositeDirection(direction);
-        lanes = new ArrayList<>();
-
-        // LEFT TURN
-        leftLight = new TrafficLight(true);
-        leftLane = new Lane(Set.of(left), leftLight);
-        lanes.add(leftLane);
-
-        // STRAIGHT / RIGHT
-        rightLight = new TrafficLight();
-        rightLane = new Lane(Set.of(right, straight), rightLight);
-        lanes.add(rightLane);
-
-        inRoads.add(new Road(direction, lanes));
-
-        return new Intersection(inRoads);
+        return new Lane(allowed, new TrafficLight(isDirectional));
     }
 }

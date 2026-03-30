@@ -16,7 +16,7 @@ public class TrafficManager {
         return intersection;
     }
 
-    /* logic:
+    /* Logic:
     1) CAR GOES RIGHT:
         a) Full Green light -> just go; nothing fancy.
         b) Red light (WITH green arrow) -> Conditional turn:
