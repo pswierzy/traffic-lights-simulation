@@ -20,7 +20,7 @@ public class Main {
 
     private static SimulationEngine engine;
     private static final Intersection intersection =
-            IntersectionFactory.createTwoLaneIntersection();
+            IntersectionFactory.createUnevenIntersection();
 
     public static void main(String[] args) {
         if (args.length != 2) {

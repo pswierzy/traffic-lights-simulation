@@ -92,7 +92,6 @@ export default function TrafficSimulation(): JSX.Element {
     const count = oppositeRoad.lanes.filter((lane) => {
       if (!lane.laneDirection) return false;
 
-      // Jeśli Java przesyła tablicę
       if (Array.isArray(lane.laneDirection)) {
         return lane.laneDirection.some(
           (d) =>
@@ -100,7 +99,6 @@ export default function TrafficSimulation(): JSX.Element {
         );
       }
 
-      // Jeśli Java przesyła Stringa
       if (typeof lane.laneDirection === "string") {
         return lane.laneDirection.toUpperCase().includes(armDirection);
       }
@@ -261,7 +259,11 @@ function Road({ arm, data, exitLanesCount }: RoadProps): JSX.Element {
           typeof lane?.lightColor === "string"
             ? lane.lightColor.toUpperCase()
             : "";
+
         const isRightArrow = lightStatus === "GREEN_ARROW_RIGHT";
+        const isLeftArrow = lightStatus === "GREEN_ARROW_LEFT";
+        const isArrowLight = isRightArrow || isLeftArrow;
+        const arrowType = isRightArrow ? "RIGHT" : "LEFT";
 
         return (
           <div
@@ -269,7 +271,7 @@ function Road({ arm, data, exitLanesCount }: RoadProps): JSX.Element {
             style={{ ...styles.lane, flexDirection: laneFlexDirection }}
           >
             <div style={styles.trafficLightContainer}>
-              {isRightArrow ? (
+              {isArrowLight ? (
                 <div
                   style={{
                     ...styles.light,
@@ -286,7 +288,7 @@ function Road({ arm, data, exitLanesCount }: RoadProps): JSX.Element {
                       fontWeight: "bold",
                     }}
                   >
-                    {getArrowCharacterForDirection(arm, "RIGHT")}
+                    {getArrowCharacterForDirection(arm, arrowType)}
                   </span>
                 </div>
               ) : (
@@ -350,26 +352,44 @@ function getArrowCharacterForDirection(
   arm: string,
   turnDirection: string,
 ): string {
-  if (turnDirection !== "RIGHT") return "";
-
-  switch (arm) {
-    case "NORTH":
-      return "←";
-    case "SOUTH":
-      return "→";
-    case "WEST":
-      return "↓";
-    case "EAST":
-      return "↑";
-    default:
-      return "→";
+  if (turnDirection === "RIGHT") {
+    switch (arm) {
+      case "NORTH":
+        return "←";
+      case "SOUTH":
+        return "→";
+      case "WEST":
+        return "↓";
+      case "EAST":
+        return "↑";
+      default:
+        return "→";
+    }
+  } else if (turnDirection === "LEFT") {
+    switch (arm) {
+      case "NORTH":
+        return "→";
+      case "SOUTH":
+        return "←";
+      case "WEST":
+        return "↑";
+      case "EAST":
+        return "↓";
+      default:
+        return "←";
+    }
   }
+
+  return "";
 }
 
 function getLightColor(status: string | undefined): string {
   if (typeof status !== "string") return "gray";
   const s = status.toUpperCase();
-  if (s === "GREEN_ARROW_RIGHT") return "transparent";
+
+  if (s === "GREEN_ARROW_RIGHT" || s === "GREEN_ARROW_LEFT")
+    return "transparent";
+
   if (s.includes("RED")) return "red";
   if (s.includes("YELLOW")) return "orange";
   if (s.includes("GREEN")) return "green";
