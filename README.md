@@ -18,7 +18,7 @@ A traffic intersection simulation system. The application models vehicle behavio
 
 ## Running the Application
 
-### 1. Backend (Simulation Engine)
+### 1. Backend
 
 Navigate to the `traffic-app` directory. First, build the project using Maven, then run the generated JAR file:
 
@@ -33,7 +33,7 @@ mvn clean package
 java -jar target/traffic-app-1.0-SNAPSHOT-jar-with-dependencies.jar commands.json result.json
 ```
 
-### 2. Frontend (User Interface)
+### 2. Frontend
 
 Navigate to the frontend directory, install dependencies, and start the development server:
 
@@ -45,24 +45,38 @@ npm run dev
 
 The client application will be available at the address provided in the console (default is `http://localhost:5173`).
 
+## User Interface (Frontend)
+
+The frontend shows a real-time representation of the simulation state, letting you monitor the traffic flow and light changes easily.
+
+- **Intersection Grid**: A top-down view of the 4-way intersection, showing all roads and lanes.
+- **Vehicles**: Represented by **blue circles** that appear in lanes and move through the intersection.
+- **Traffic Lights**: Circles (or arrows) showing the current state for each lane (**Red**, **Green**, or **Yellow**).
+- **Directional Arrows**: Small white arrows on each lane indicating allowed directions (Straight, Left, Right).
+- **Control**:
+  - **"NEXT STEP"** button at the top allows you to trigger the next command from the loaded **.json** file.
+  - Each click executes the next command from the queue (adding a new vehicle or performing a simulation tick), making analyzing the algorithm's decision-making process step-by-step possible.
+
+![Frontend showcase](frontend.png)
+
 ## Traffic Control Algorithm Description
 
 The logic for managing traffic lights and vehicle flow is designed to maximize throughput, maintain safety rules, and eliminate "starvation" (where vehicles on a less busy road wait forever).
 
 ### 1. Traffic Light Phase Selection (Wait Ticks)
 
-The intersection operates on 4 directional phases: `NS_LEFT` (for collision-free left turns), `EW_LEFT`, `NS` and `EW`. Phase selection is dynamic:
+The intersection operates on 4 directional groups: `NS_LEFT` (for collision-free left turns), `EW_LEFT`, `NS` and `EW`. Phase selection is dynamic:
 
-- **Wait Ticks Prioritization:** In each cycle, lanes with a red light receive points (ticks) equal to the number of waiting cars.
-- **Phase Switching:** The system selects the phase with the highest sum of accumulated points. A single vehicle waiting long enough will eventually accumulate more points than a newly arrived larger group of vehicles on another lane, guaranteeing its passage.
-- **Round-Robin fallback:** If there are no vehicles at the intersection, the algorithm iterates through the available phases sequentially.
+- **Wait Ticks Prioritization:** In each cycle, lanes with a red light accumulate "priority points" equal to the number of waiting vehicles for their group.
+- **Phase Switching:** The system selects the phase corresponding to the group with the highest sum of accumulated points (without repeating the last phase). A single vehicle waiting long enough will eventually accumulate more points than a newly arrived larger group of vehicles on another lane, guaranteeing its passage.
+- **Fallback:** If there are no vehicles at the intersection, the algorithm iterates through the available phases sequentially.
 
 ### 2. Dynamic Green Light Duration
 
 The duration of the green light is not hardcoded but calculated based on the current load of the selected phase:
 
 - **Base calculation:** `number_of_vehicles / 2`
-- **Time limits:** It respects `MIN_GREEN_LENGTH` (2 ticks) and `MAX_GREEN_LENGTH` (10 ticks).
+- **Time limits:** It has to be between `MIN_GREEN_LENGTH` (2 ticks) and `MAX_GREEN_LENGTH` (10 ticks).
 
 ### 3. Traffic Light State Machine
 
