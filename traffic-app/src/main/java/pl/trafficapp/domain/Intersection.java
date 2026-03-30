@@ -38,20 +38,4 @@ public class Intersection {
     public boolean addVehicle(Vehicle vehicle) {
         return inRoads.get(vehicle.start()).addVehicle(vehicle);
     }
-
-    public Road getRightRoad(Road road) {
-        Direction dir = road.getIncomingDirection();
-
-        return inRoads.get(Direction.getRightDirection(dir));
-    }
-    public Road getOppositeRoad(Road road) {
-        Direction dir = road.getIncomingDirection();
-
-        return inRoads.get(Direction.getOppositeDirection(dir));
-    }
-    public Road getLeftRoad(Road road) {
-        Direction dir = road.getIncomingDirection();
-
-        return inRoads.get(Direction.getLeftDirection(dir));
-    }
 }

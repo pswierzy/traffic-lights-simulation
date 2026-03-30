@@ -16,8 +16,8 @@ public class TrafficLightManager {
     private Phase currentPhase = Phase.NS_LEFT;
     private State currentState = State.RED_ALL;
 
-    private final static int MIN_GREEN_LENGTH = 2;
-    private final static int MAX_GREEN_LENGTH = 10;
+    public final static int MIN_GREEN_LENGTH = 2;
+    public final static int MAX_GREEN_LENGTH = 10;
 
 
     private enum Phase {NS_LEFT, EW_LEFT, NS, EW}
